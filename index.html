@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Quantum Career Lab — Study, Practice, and Certify</title>
+<meta name="description" content="Educational reference only, not a guarantee of exam success or job placement. A study roadmap, certification guide, interactive circuit-building labs, mock exam, and interview scenarios for individuals preparing for a quantum computing career." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#14171C; --panel:#1A1E24; --line:#262B33; --line2:#2E343D;
+    --text:#E7E4DC; --blue:#4E9EE8; --green:#7FD9A6; --amber:#E8C27A; --red:#E88B93; --violet:#8B7FE8;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Spectral',Georgia,serif;line-height:1.55;}
+  ::selection{background:#4E9EE855;}
+  a{color:var(--blue);}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+
+  header{border-bottom:1px solid var(--line);padding:48px 32px 40px;}
+  .header-inner{max-width:1180px;margin:0 auto;}
+  .kicker{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;color:var(--blue);margin-bottom:14px;}
+  h1{font-size:clamp(30px,4vw,48px);margin:0 0 14px;font-weight:600;max-width:720px;}
+  .sub{font-size:16px;opacity:.72;max-width:660px;margin:0;}
+  .reviewed-line{margin-top:16px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;opacity:.5;max-width:640px;}
+
+  .disclaimer-banner{max-width:1180px;margin:24px auto 0;padding:16px 18px;border:1px solid #5A2A30;background:#241417;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#E8A9AD;line-height:1.7;}
+  .disclaimer-banner strong{color:#E88B93;}
+  .privacy-banner{max-width:1180px;margin:12px auto 0;padding:14px 16px;border:1px solid #2E5541;background:#182420;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--green);}
+
+  section{padding:56px 32px;max-width:1180px;margin:0 auto;border-top:1px solid var(--line);}
+  .section-label{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--blue);margin-bottom:10px;}
+  h2{font-size:28px;font-weight:600;margin:0 0 16px;}
+  .lede{opacity:.72;font-size:15px;max-width:760px;margin:0 0 32px;}
+  h3{font-size:18px;font-weight:600;margin:0 0 10px;}
+
+  .path-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:28px;}
+  .path-card{background:var(--bg);padding:20px 20px 22px;cursor:pointer;color:var(--text);display:block;transition:background .15s ease;}
+  .path-card:hover{background:var(--panel);}
+  .path-card .pn{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--blue);margin-bottom:8px;}
+  .path-card .pt{font-size:16px;font-weight:600;margin-bottom:6px;}
+  .path-card .pb{font-size:12.5px;opacity:.65;}
+
+  .stage-list{counter-reset:stage;}
+  .stage-item{display:flex;gap:16px;padding:22px 0;border-bottom:1px solid #1E222A;}
+  .stage-item:last-child{border-bottom:none;}
+  .stage-num{counter-increment:stage;flex:0 0 40px;height:40px;border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--blue);}
+  .stage-num::before{content:counter(stage);}
+  .stage-body{flex:1;}
+  .stage-title{font-weight:600;font-size:17px;margin-bottom:6px;}
+  .stage-desc{font-size:14px;opacity:.78;margin-bottom:10px;}
+  .stage-resources{display:flex;flex-wrap:wrap;gap:8px;}
+  .res-chip{font-family:'IBM Plex Mono',monospace;font-size:11px;padding:5px 10px;background:var(--panel);border:1px solid var(--line2);text-decoration:none;color:var(--text);opacity:.85;}
+  .res-chip:hover{border-color:var(--blue);color:var(--blue);}
+
+  .fact-box{margin-top:20px;padding:16px 20px;background:var(--panel);border:1px solid var(--line2);font-size:14px;}
+  .fact-box strong{color:var(--blue);}
+  .warn-box{margin-top:20px;padding:16px 20px;background:#241F14;border:1px solid #5A4C24;font-size:14px;color:var(--amber);}
+  .warn-box strong{color:#F0D08A;}
+
+  .vendor-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:13.5px;}
+  .vendor-table th{text-align:left;font-family:'IBM Plex Mono',monospace;font-size:11px;opacity:.5;letter-spacing:.05em;padding:8px 12px;border-bottom:1px solid var(--line2);}
+  .vendor-table td{padding:10px 12px;border-bottom:1px solid #1E222A;opacity:.85;vertical-align:top;}
+  .vendor-table tr:last-child td{border-bottom:none;}
+
+  .toggle-bar{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;}
+  .toggle-btn{font-family:'IBM Plex Mono',monospace;font-size:13px;padding:9px 16px;background:transparent;border:1px solid var(--line2);color:var(--text);cursor:pointer;opacity:.65;}
+  .toggle-btn.active{background:var(--blue);border-color:var(--blue);color:#14171C;opacity:1;font-weight:600;}
+
+  /* Simulator */
+  .sim-wrap{border:1px solid var(--line2);background:var(--panel);padding:24px 26px;margin-top:8px;}
+  .sim-row{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:20px;}
+  .sim-control{flex:1;min-width:220px;}
+  .sim-control label{display:block;font-size:12px;font-family:'IBM Plex Mono',monospace;opacity:.6;margin-bottom:8px;}
+  .qubit-select{display:flex;gap:6px;}
+  .gate-palette{display:flex;flex-wrap:wrap;gap:8px;}
+  .gate-btn{font-family:'IBM Plex Mono',monospace;font-size:13px;padding:8px 14px;background:var(--bg);border:1px solid var(--line2);color:var(--text);cursor:pointer;}
+  .gate-btn:hover{border-color:var(--blue);}
+  .circuit-steps{min-height:44px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:14px;background:var(--bg);border:1px dashed var(--line2);margin-bottom:16px;}
+  .circuit-step{font-family:'IBM Plex Mono',monospace;font-size:12px;padding:6px 10px;background:var(--panel);border:1px solid var(--blue);color:var(--blue);cursor:pointer;}
+  .circuit-step:hover{background:#2A1F1F;border-color:var(--red);color:var(--red);}
+  .circuit-empty{font-family:'IBM Plex Mono',monospace;font-size:12px;opacity:.4;}
+  .sim-actions{display:flex;gap:10px;margin-bottom:20px;}
+  .btn{font-family:'IBM Plex Mono',monospace;font-size:13px;padding:10px 18px;cursor:pointer;border:1px solid var(--line2);background:var(--bg);color:var(--text);}
+  .btn.primary{background:var(--blue);border-color:var(--blue);color:#14171C;font-weight:600;}
+  .btn.ghost:hover{border-color:var(--red);color:var(--red);}
+  .result-bars{display:flex;flex-direction:column;gap:8px;}
+  .result-row{display:flex;align-items:center;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:13px;}
+  .result-label{flex:0 0 70px;}
+  .result-track{flex:1;height:20px;background:var(--bg);border:1px solid var(--line2);position:relative;}
+  .result-fill{height:100%;background:var(--blue);}
+  .result-pct{flex:0 0 55px;text-align:right;}
+
+  .lab-card{border:1px solid var(--line2);background:var(--bg);padding:18px 20px;margin-bottom:12px;}
+  .lab-card .lc-title{font-weight:600;font-size:15px;margin-bottom:6px;}
+  .lab-card .lc-body{font-size:13.5px;opacity:.75;margin-bottom:10px;}
+  .lab-load{font-family:'IBM Plex Mono',monospace;font-size:12px;padding:7px 14px;background:transparent;border:1px solid var(--blue);color:var(--blue);cursor:pointer;}
+  .lab-load:hover{background:var(--blue);color:#14171C;}
+
+  /* Mock exam */
+  .quiz-q{border:1px solid var(--line2);background:var(--panel);padding:20px 22px;margin-bottom:14px;}
+  .quiz-q .qq-cat{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--violet);margin-bottom:8px;}
+  .quiz-q .qq-text{font-weight:600;font-size:15px;margin-bottom:14px;}
+  .qq-opt{display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:8px;background:var(--bg);border:1px solid var(--line2);color:var(--text);font-family:'Spectral',Georgia,serif;font-size:14px;cursor:pointer;}
+  .qq-opt:hover{border-color:var(--blue);}
+  .qq-opt.correct{border-color:var(--green);background:#1A2E22;color:var(--green);}
+  .qq-opt.incorrect{border-color:var(--red);background:#2A1A1D;color:var(--red);}
+  .qq-explain{display:none;margin-top:10px;padding:12px 14px;background:var(--bg);border-left:2px solid var(--blue);font-size:13.5px;opacity:.85;}
+  .qq-explain.show{display:block;}
+  .score-box{position:sticky;top:0;background:var(--panel);border:1px solid var(--line2);padding:14px 20px;margin-bottom:20px;font-family:'IBM Plex Mono',monospace;font-size:14px;display:flex;justify-content:space-between;align-items:center;}
+
+  .role-card{border:1px solid var(--line2);background:var(--panel);padding:22px 24px;margin-bottom:14px;}
+  .role-card .rc-title{font-size:17px;font-weight:600;margin-bottom:10px;}
+  .role-row{display:grid;grid-template-columns:110px 1fr;gap:12px;font-size:14px;margin-bottom:8px;}
+  .role-row .rk{font-family:'IBM Plex Mono',monospace;font-size:11px;opacity:.5;letter-spacing:.05em;padding-top:2px;}
+
+  .scenario-card{border:1px solid var(--line2);background:var(--bg);padding:18px 20px;margin-bottom:10px;}
+  .scenario-card .sc-role{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--violet);margin-bottom:8px;}
+  .scenario-card .sc-q{font-weight:600;font-size:14.5px;margin-bottom:8px;}
+  .scenario-card .sc-hint{font-size:13px;opacity:.7;}
+
+  .source-group{margin-bottom:26px;}
+  .source-group h4{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;color:var(--blue);margin:0 0 10px;text-transform:uppercase;}
+  .source-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #1E222A;font-size:13.5px;}
+  .source-item a{text-decoration:none;}
+  .source-item a:hover{text-decoration:underline;}
+  .source-org{opacity:.5;font-size:12px;white-space:nowrap;flex:0 0 auto;font-family:'IBM Plex Mono',monospace;}
+
+  footer{border-top:1px solid var(--line);padding:32px;max-width:1180px;margin:0 auto;font-family:'IBM Plex Mono',monospace;font-size:12px;}
+  footer .fline{opacity:.6;margin-bottom:10px;}
+
+  @media (max-width:860px){
+    .stage-item{flex-direction:column;gap:8px;}
+    .role-row{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="kicker">QUANTUM CAREER LAB · STUDY · PRACTICE · CERTIFY</div>
+    <h1>Preparing to actually work in quantum computing.</h1>
+    <p class="sub">A study roadmap, a real certification deep-dive, hands-on circuit-building labs with a genuine (verified) simulator, mock exam questions, and interview scenarios — for individuals, not companies.</p>
+    <div class="reviewed-line">Last reviewed: July 2026 — certification formats, pricing, and course catalogs all move; treat every dated fact here as a verified starting point, not a permanent reference.</div>
+  </div>
+</header>
+
+<div class="disclaimer-banner">
+  ⚠️ <strong>Educational content only — not a guarantee of exam success or job placement.</strong> This site is not affiliated with, sponsored by, or endorsed by IBM, Pearson VUE, Qiskit, or any certification body or employer. Mock exam questions on this page are original, written for study purposes, and are not official exam content. Verify certification format, pricing, and registration directly with the official provider before paying for or scheduling any exam. 🔒 100% client-side — nothing you build, answer, or click here is stored or sent anywhere.
+</div>
+
+<section style="border-top:none;padding-top:40px;">
+  <div class="section-label">00 — START HERE</div>
+  <h2>Pick where you are in the process</h2>
+  <p class="lede">Six parts, roughly in the order most people actually move through them — jump to whichever fits.</p>
+  <div class="path-grid" id="path-grid">
+    <div class="path-card" data-target="roadmap" role="button" tabindex="0"><div class="pn">01</div><div class="pt">Study Roadmap</div><div class="pb">What to learn, in order, with real free resources.</div></div>
+    <div class="path-card" data-target="cert" role="button" tabindex="0"><div class="pn">02</div><div class="pt">Certification Guide</div><div class="pb">The real exam that exists today — format, cost, how to register.</div></div>
+    <div class="path-card" data-target="labs" role="button" tabindex="0"><div class="pn">03</div><div class="pt">Hands-On Labs</div><div class="pb">A real circuit simulator you can use right now, plus curated external labs.</div></div>
+    <div class="path-card" data-target="exam" role="button" tabindex="0"><div class="pn">04</div><div class="pt">Mock Exam</div><div class="pb">Original practice questions, scored, organized by topic.</div></div>
+    <div class="path-card" data-target="scenarios" role="button" tabindex="0"><div class="pn">05</div><div class="pt">Interview Scenarios</div><div class="pb">The kind of questions that actually come up, by role.</div></div>
+    <div class="path-card" data-target="careers" role="button" tabindex="0"><div class="pn">06</div><div class="pt">Career Paths</div><div class="pb">Five real role types and what each one actually does.</div></div>
+    <div class="path-card" data-target="community" role="button" tabindex="0"><div class="pn">07</div><div class="pt">Community &amp; Timelines</div><div class="pb">Where to go next, and a realistic sense of how long this takes.</div></div>
+  </div>
+</section>
+
+<!-- ============ 01 STUDY ROADMAP ============ -->
+<section id="roadmap">
+  <div class="section-label">01 — STUDY ROADMAP</div>
+  <h2>Six stages, in order</h2>
+  <p class="lede">Skipping ahead is tempting and usually costly — each stage assumes the one before it. Free resources are linked at every stage; nothing here requires paying for a course to get started.</p>
+  <div class="stage-list" id="stage-list"></div>
+</section>
+
+<!-- ============ 02 CERTIFICATION GUIDE ============ -->
+<section id="cert">
+  <div class="section-label">02 — CERTIFICATION GUIDE</div>
+  <h2>The real certification that exists today</h2>
+  <p class="lede">There is currently one widely recognized, vendor-issued, individually-earnable quantum computing certification. Being specific about that — rather than implying a broad landscape that doesn't exist yet — matters here.</p>
+
+  <h3>IBM Certified Quantum Computation using Qiskit v2.X — Developer, Associate</h3>
+  <table class="vendor-table">
+    <tr><th>Detail</th><th>What to know</th></tr>
+    <tr><td>Exam code</td><td>C1000-179 — "Fundamentals of Quantum Computing Using Qiskit v2.X Developer"</td></tr>
+    <tr><td>Format</td><td>60 questions, delivered through Pearson VUE testing centers or online proctoring</td></tr>
+    <tr><td>Cost</td><td>Approximately $150–$200 USD, varies by location — confirm current pricing at registration</td></tr>
+    <tr><td>Expiration</td><td>Does not expire once earned</td></tr>
+    <tr><td>Track record</td><td>Over 1,300 people certified since the program launched in 2021, across 71 countries (figure as of the prior exam version)</td></tr>
+    <tr><td>Credential</td><td>Digital badge issued via Credly, plus the formal certification title</td></tr>
+    <tr><td>History</td><td>The exam has been updated as Qiskit itself evolved — the previous version (v0.2X, exam C1000-112) was retired September 30, 2025, replaced by the current v2.X version covering Qiskit Runtime</td></tr>
+  </table>
+
+  <div class="fact-box"><strong>What it actually tests:</strong> the mathematics of quantum information for single and multi-qubit systems, quantum circuit construction, core concepts like the Bloch sphere and Bell states, and practical Qiskit and Qiskit Runtime usage for creating and executing programs on IBM's simulators and real hardware. IBM's official exam page publishes the current detailed topic breakdown and a downloadable study guide — check there for the authoritative, current version rather than a summary here, since exam content is updated as Qiskit evolves.</div>
+
+  <div class="warn-box"><strong>Recommended, not required, preparation:</strong> IBM explicitly does not require any specific course before sitting the exam. An optional path many candidates use: build real circuit-writing experience first (see the Hands-On Labs section), then use IBM's free assessment exam through Pearson VUE to gauge readiness before booking the real one.</div>
+
+  <h3 style="margin-top:32px;">Beyond this one certification: the adjacent-credential strategy</h3>
+  <p style="opacity:.8;font-size:14.5px;max-width:760px;">Because a broad landscape of quantum-specific certifications doesn't exist yet, the practical approach for most specializations is pairing quantum learning with an adjacent, established certification in a related field:</p>
+  <table class="vendor-table">
+    <tr><th>Target specialization</th><th>Adjacent certification strategy</th></tr>
+    <tr><td>Quantum machine learning</td><td>An AI/ML certification combined with QML-focused coursework — covers the hybrid workflows that dominate real quantum ML work today.</td></tr>
+    <tr><td>Quantum-safe security / PQC</td><td>A cybersecurity or applied cryptography certification — directly useful for PQC migration work, which is a software and protocol discipline more than a quantum-hardware one.</td></tr>
+    <tr><td>Quantum hardware engineering</td><td>Typically requires formal physics or electrical engineering credentials (see Career Paths) rather than a short-form certification.</td></tr>
+  </table>
+</section>
+
+<!-- ============ 03 HANDS-ON LABS ============ -->
+<section id="labs">
+  <div class="section-label">03 — HANDS-ON LABS</div>
+  <h2>Build real circuits, right here</h2>
+  <p class="lede">This is a genuine quantum state-vector simulator — the same linear algebra a real simulator backend uses for small circuits, verified against known textbook results before this page shipped. It's limited to 1–3 qubits (enough to learn the core concepts) and runs entirely in your browser.</p>
+
+  <div class="sim-wrap">
+    <div class="sim-row">
+      <div class="sim-control">
+        <label>Number of qubits</label>
+        <div class="qubit-select" id="qubit-select"></div>
+      </div>
+    </div>
+    <div class="sim-row">
+      <div class="sim-control" style="flex:1 1 100%;">
+        <label>Add a gate</label>
+        <div class="gate-palette" id="gate-palette"></div>
+      </div>
+    </div>
+    <label style="display:block;font-size:12px;font-family:'IBM Plex Mono',monospace;opacity:.6;margin-bottom:8px;">Circuit (click a step to remove it)</label>
+    <div class="circuit-steps" id="circuit-steps"></div>
+    <div class="sim-actions">
+      <button class="btn primary" id="run-btn">Run circuit</button>
+      <button class="btn ghost" id="reset-btn">Reset</button>
+    </div>
+    <label style="display:block;font-size:12px;font-family:'IBM Plex Mono',monospace;opacity:.6;margin-bottom:10px;">Measurement probabilities</label>
+    <div class="result-bars" id="result-bars"></div>
+  </div>
+
+  <h3 style="margin-top:36px;">Guided labs</h3>
+  <p class="lede" style="margin-bottom:20px;">Each one loads a specific circuit into the simulator above and tells you what to expect — the point is confirming your prediction matches the real result, not just watching it run.</p>
+  <div id="lab-cards"></div>
+
+  <h3 style="margin-top:36px;">Real external labs, in order</h3>
+  <p class="lede" style="margin-bottom:16px;">Once the concepts above feel solid, these are free, real environments worth working through in sequence — this simulator is deliberately small-scale; these aren't.</p>
+  <div id="external-labs"></div>
+</section>
+
+<!-- ============ 04 MOCK EXAM ============ -->
+<section id="exam">
+  <div class="section-label">04 — MOCK EXAM</div>
+  <h2>Original practice questions</h2>
+  <p class="lede">Written for this site to match the topic areas the real certification covers — not official exam content, and not a guarantee of what you'll actually be asked. Treat a strong score here as one useful signal, not a substitute for the official assessment exam.</p>
+  <div class="fact-box"><strong>Start with the real thing first.</strong> IBM publishes its own official free Sample Test directly on the certification page — that's the single best resource for seeing the actual current question format, and it should come before anything on this page. A couple of free community resources also walk through explanations of IBM's official sample questions in detail, for both the current v2.X exam and the retired v0.2X version — useful, but double-check which version any given resource is explaining before trusting it.</div>
+  <div class="stage-resources" style="margin:16px 0 28px;">
+    <a class="res-chip" href="https://www.ibm.com/training/certification/ibm-certified-associate-developer-quantum-computation-using-qiskit-v02x-C0010300" target="_blank" rel="noopener">IBM's official certification page &amp; sample test</a>
+    <a class="res-chip" href="https://schrodinteq.github.io/ibmcertsamplev2x01/" target="_blank" rel="noopener">Community explanations — current v2.X sample test</a>
+    <a class="res-chip" href="https://github.com/andre-a-alves/qiskit-sample-test-answers" target="_blank" rel="noopener">GitHub — sample test answer breakdowns</a>
+  </div>
+  <div class="score-box"><span>Score</span><span id="score-display" class="mono">0 / 0</span></div>
+  <div id="quiz-list"></div>
+</section>
+
+<!-- ============ 05 INTERVIEW SCENARIOS ============ -->
+<section id="scenarios">
+  <div class="section-label">05 — INTERVIEW &amp; SCENARIO PREP</div>
+  <h2>The kind of questions that actually come up</h2>
+  <p class="lede">Organized by role, since a quantum software interview and a quantum hardware interview have very little overlap. These are original, written to reflect common question <em>styles</em> — not leaked or reported questions from any specific employer.</p>
+  <div class="toggle-bar" id="scenario-toggle"></div>
+  <div id="scenario-list"></div>
+</section>
+
+<!-- ============ 06 CAREER PATHS ============ -->
+<section id="careers">
+  <div class="section-label">06 — CAREER PATHS</div>
+  <h2>Five real role types</h2>
+  <p class="lede">"Quantum computing job" hides real variety underneath it — these differ enough in daily work and required background that picking one early focuses your study time considerably.</p>
+  <div id="career-list"></div>
+</section>
+
+<!-- ============ 07 COMMUNITY & TIMELINES ============ -->
+<section id="community">
+  <div class="section-label">07 — COMMUNITY &amp; REALISTIC TIMELINES</div>
+  <h2>Where to go next</h2>
+  <h3>Community and events</h3>
+  <div class="stage-resources" style="margin-bottom:24px;">
+    <a class="res-chip" href="https://qiskit.slack.com" target="_blank" rel="noopener">Qiskit Slack community</a>
+    <a class="res-chip" href="https://quantumai.google/cirq" target="_blank" rel="noopener">Cirq community (Google)</a>
+    <a class="res-chip" href="https://q2b.qcware.com/" target="_blank" rel="noopener">Q2B conference</a>
+    <a class="res-chip" href="https://march.aps.org/" target="_blank" rel="noopener">APS March Meeting / DAMOP</a>
+  </div>
+  <p style="opacity:.8;font-size:14.5px;max-width:760px;">Hackathons are one of the highest-leverage ways to build both skills and a portfolio quickly — annual events run by Xanadu (QHack) and MIT (iQuHACK) are well-established examples; confirm current dates, since hackathon schedules shift year to year.</p>
+
+  <h3 style="margin-top:28px;">If you're job-hunting specifically, not just company-building</h3>
+  <p style="opacity:.8;font-size:14.5px;max-width:760px;">The Quantum Economic Development Consortium (QED-C) is a company-membership body, not a job board for individuals — but its member companies post real openings on their own career pages, and dedicated quantum job boards (such as quantumjobs.us) aggregate listings specifically from this industry rather than general tech postings, which cuts down on noise considerably.</p>
+
+  <div class="fact-box" style="margin-top:24px;"><strong>A realistic timeline, sourced rather than guessed:</strong> for the software-development path specifically, someone with a relevant existing background — programming experience, some math — moving through consistent daily study can realistically reach job offers within roughly 12 to 18 months. That figure is real and gets cited often, but it describes a specific, favorable starting point, not a universal guarantee. Hardware engineering and algorithm research paths typically run longer and often expect graduate-level credentials, covered in the Career Paths section above.</div>
+</section>
+
+<section>
+  <div class="section-label">08 — SOURCES &amp; FURTHER READING</div>
+  <h2>Where this came from</h2>
+  <p class="lede">Certification details, course catalogs, and job-market figures move — these are worth checking directly rather than trusting a snapshot.</p>
+  <div id="source-list"></div>
+</section>
+
+<footer>
+  <div class="fline">Quantum Career Lab · a starting framework, not a guarantee of exam success or employment outcomes.</div>
+  <div class="fline">🔒 100% client-side — nothing you build, answer, or click here is stored or sent anywhere.</div>
+  <div class="disclaimer-banner" style="margin:0;">
+    ⚠️ <strong>Repeating this because it matters:</strong> not affiliated with IBM, Pearson VUE, Qiskit, or any employer or certification body. Mock exam and scenario questions are original and unofficial. Verify certification format and pricing directly with the official provider before paying for or scheduling anything.
+  </div>
+</footer>
+
+<script>
+(function () {
+  // =========================================================
+  // Path picker — JS-driven scroll (learned from Quantum Onramp:
+  // native href="#id" links can fail silently in sandboxed previews)
+  // =========================================================
+  document.querySelectorAll("#path-grid .path-card").forEach(card => {
+    function go() {
+      const target = document.getElementById(card.dataset.target);
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    card.addEventListener("click", go);
+    card.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+  });
+
+  // =========================================================
+  // 01 — Study Roadmap
+  // =========================================================
+  const STAGES = [
+    {
+      title: "Prerequisites",
+      desc: "Linear algebra (vectors, matrices, complex numbers), basic probability, and Python programming. Skipping this stage is the single most common reason people bounce off quantum computing early — the notation is the real barrier, not the physics intuition.",
+      resources: [["Khan Academy — Linear Algebra", "https://www.khanacademy.org/math/linear-algebra"], ["Python.org — Official Tutorial", "https://docs.python.org/3/tutorial/"]],
+    },
+    {
+      title: "Quantum Computing Fundamentals",
+      desc: "Qubits, superposition, entanglement, gates, circuits, and measurement — the vocabulary in Quantum Blueprint's glossary, but now building the intuition behind each term rather than just the definition.",
+      resources: [["IBM Quantum Learning (free)", "https://learning.quantum.ibm.com/"], ["Qiskit Textbook", "https://qiskit.org/learn"]],
+    },
+    {
+      title: "Programming with Qiskit",
+      desc: "Installing Qiskit, building circuits in code, and running them on simulators and real hardware. If you haven't set this up yet, Quantum Onramp's Desktop & Laptop chapter walks through it OS by OS.",
+      resources: [["IBM Quantum — Install Qiskit", "https://quantum.cloud.ibm.com/docs/en/guides/install-qiskit"]],
+    },
+    {
+      title: "Core Algorithms",
+      desc: "Deutsch-Jozsa, Grover's search, Shor's factoring, and the hybrid algorithms that dominate near-term real use — VQE and QAOA. This is where \u201Cwhy does quantum help here\u201D finally clicks for most people.",
+      resources: [["MITx — Quantum Information Science (edX)", "https://www.edx.org/school/mitx"], ["Qiskit Textbook — Algorithms", "https://qiskit.org/learn"]],
+    },
+    {
+      title: "Pick a Specialization",
+      desc: "Quantum software development, algorithm research, hardware engineering, quantum machine learning, or quantum-safe security — see the Career Paths section below for what each actually involves day to day before committing.",
+      resources: [["Career Paths section", "#careers-jump"]],
+    },
+    {
+      title: "Certification and Portfolio",
+      desc: "Sit the real certification once you're consistently comfortable with the mock exam below, and build a small portfolio — a hackathon project or a few well-documented circuits on GitHub — since a certification alone rarely tells the whole story to an employer.",
+      resources: [["Certification Guide section", "#cert-jump"], ["Community & hackathons", "#community-jump"]],
+    },
+  ];
+
+  document.getElementById("stage-list").innerHTML = STAGES.map((s, i) => `
+    <div class="stage-item">
+      <div class="stage-num"></div>
+      <div class="stage-body">
+        <div class="stage-title">${s.title}</div>
+        <div class="stage-desc">${s.desc}</div>
+        <div class="stage-resources">
+          ${s.resources.map(([label, url]) => `<a class="res-chip" href="${url}" target="${url.startsWith('#') ? '_self' : '_blank'}" rel="noopener">${label}</a>`).join("")}
+        </div>
+      </div>
+    </div>
+  `).join("");
+
+  // internal jump-link handling for the two "#...-jump" anchors above (also JS-driven, not native)
+  document.getElementById("stage-list").addEventListener("click", e => {
+    const href = e.target.getAttribute && e.target.getAttribute("href");
+    if (href && href.startsWith("#")) {
+      e.preventDefault();
+      const map = { "#careers-jump": "careers", "#cert-jump": "cert", "#community-jump": "community" };
+      const id = map[href];
+      if (id) document.getElementById(id).scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+
+  // =========================================================
+  // 03 — Hands-On Labs: verified quantum state-vector simulator
+  // Math verified standalone before this page shipped:
+  //   H|0> -> 50/50; Bell state -> 50/50 on |00>/|11> only;
+  //   GHZ state -> 50/50 on |000>/|111> only; X|0> -> 100% |1>;
+  //   H then H -> back to 100% |0>.
+  // =========================================================
+  const cAdd = (a, b) => ({ re: a.re + b.re, im: a.im + b.im });
+  const cMul = (a, b) => ({ re: a.re * b.re - a.im * b.im, im: a.re * b.im + a.im * b.re });
+  const c = (re, im = 0) => ({ re, im });
+  const SQRT1_2 = 1 / Math.sqrt(2);
+  const GATES_1Q = {
+    H: [[c(SQRT1_2), c(SQRT1_2)], [c(SQRT1_2), c(-SQRT1_2)]],
+    X: [[c(0), c(1)], [c(1), c(0)]],
+    Z: [[c(1), c(0)], [c(0), c(-1)]],
+    Y: [[c(0), c(0, -1)], [c(0, 1), c(0)]],
+  };
+
+  function initState(n) {
+    const state = new Array(2 ** n).fill(0).map(() => c(0));
+    state[0] = c(1);
+    return state;
+  }
+  function applyGate1(state, gateName, qubit) {
+    const gate = GATES_1Q[gateName];
+    const size = state.length;
+    const newState = new Array(size).fill(0).map(() => c(0));
+    for (let i = 0; i < size; i++) {
+      if (((i >> qubit) & 1) === 0) {
+        const j = i | (1 << qubit);
+        const a = state[i], b = state[j];
+        newState[i] = cAdd(cMul(gate[0][0], a), cMul(gate[0][1], b));
+        newState[j] = cAdd(cMul(gate[1][0], a), cMul(gate[1][1], b));
+      }
+    }
+    return newState;
+  }
+  function applyCNOT(state, control, target) {
+    const size = state.length;
+    const newState = new Array(size);
+    for (let i = 0; i < size; i++) {
+      const controlBit = (i >> control) & 1;
+      const j = controlBit ? (i ^ (1 << target)) : i;
+      newState[i] = state[j];
+    }
+    return newState;
+  }
+  function probabilities(state) { return state.map(a => a.re * a.re + a.im * a.im); }
+
+  let simQubits = 2;
+  let simSteps = []; // { gate: 'H'|'X'|'Y'|'Z'|'CNOT', qubit, control, target }
+
+  function renderQubitSelect() {
+    document.getElementById("qubit-select").innerHTML = [1, 2, 3].map(n =>
+      `<button class="toggle-btn${n === simQubits ? " active" : ""}" data-n="${n}">${n} qubit${n > 1 ? "s" : ""}</button>`
+    ).join("");
+    document.querySelectorAll("#qubit-select .toggle-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        simQubits = Number(btn.dataset.n);
+        simSteps = simSteps.filter(s => Math.max(s.qubit ?? 0, s.control ?? 0, s.target ?? 0) < simQubits);
+        renderQubitSelect(); renderGatePalette(); renderCircuitSteps(); renderResults(initState(simQubits));
+      });
+    });
+  }
+  function renderGatePalette() {
+    const buttons = [];
+    for (let q = 0; q < simQubits; q++) {
+      ["H", "X", "Y", "Z"].forEach(g => buttons.push(`<button class="gate-btn" data-gate="${g}" data-qubit="${q}">${g} on q${q}</button>`));
+    }
+    if (simQubits >= 2) {
+      for (let ctrl = 0; ctrl < simQubits; ctrl++) {
+        for (let tgt = 0; tgt < simQubits; tgt++) {
+          if (ctrl !== tgt) buttons.push(`<button class="gate-btn" data-gate="CNOT" data-control="${ctrl}" data-target="${tgt}">CNOT q${ctrl}\u2192q${tgt}</button>`);
+        }
+      }
+    }
+    document.getElementById("gate-palette").innerHTML = buttons.join("");
+    document.querySelectorAll(".gate-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const gate = btn.dataset.gate;
+        if (gate === "CNOT") simSteps.push({ gate, control: Number(btn.dataset.control), target: Number(btn.dataset.target) });
+        else simSteps.push({ gate, qubit: Number(btn.dataset.qubit) });
+        renderCircuitSteps();
+      });
+    });
+  }
+  function renderCircuitSteps() {
+    const el = document.getElementById("circuit-steps");
+    if (!simSteps.length) { el.innerHTML = `<span class="circuit-empty">No gates yet — add one above, or load a guided lab below.</span>`; return; }
+    el.innerHTML = simSteps.map((s, i) =>
+      `<span class="circuit-step" data-idx="${i}">${s.gate === "CNOT" ? `CNOT q${s.control}\u2192q${s.target}` : `${s.gate} q${s.qubit}`} \u2715</span>`
+    ).join("");
+    document.querySelectorAll(".circuit-step").forEach(el2 => {
+      el2.addEventListener("click", () => { simSteps.splice(Number(el2.dataset.idx), 1); renderCircuitSteps(); });
+    });
+  }
+  function renderResults(state) {
+    const probs = probabilities(state);
+    const n = simQubits;
+    document.getElementById("result-bars").innerHTML = probs.map((p, i) => `
+      <div class="result-row">
+        <span class="result-label">|${i.toString(2).padStart(n, "0")}\u27e9</span>
+        <span class="result-track"><span class="result-fill" style="width:${(p * 100).toFixed(1)}%"></span></span>
+        <span class="result-pct">${(p * 100).toFixed(1)}%</span>
+      </div>
+    `).join("");
+  }
+  function runCircuit() {
+    let state = initState(simQubits);
+    simSteps.forEach(s => {
+      state = s.gate === "CNOT" ? applyCNOT(state, s.control, s.target) : applyGate1(state, s.gate, s.qubit);
+    });
+    renderResults(state);
+  }
+  document.getElementById("run-btn").addEventListener("click", runCircuit);
+  document.getElementById("reset-btn").addEventListener("click", () => { simSteps = []; renderCircuitSteps(); renderResults(initState(simQubits)); });
+
+  renderQubitSelect(); renderGatePalette(); renderCircuitSteps(); renderResults(initState(simQubits));
+
+  // Guided labs
+  const LABS = [
+    { title: "Lab 1 — Superposition", body: "Load: H on q0, 1 qubit. Predict the result before you press Run — then check.", expect: "Expect roughly 50% on |0\u27e9 and 50% on |1\u27e9. This is the basic coin-flip-like behavior superposition produces.", qubits: 1, steps: [{ gate: "H", qubit: 0 }] },
+    { title: "Lab 2 — The Bell State", body: "Load: H on q0, then CNOT q0\u2192q1, 2 qubits. This is the canonical entangled pair.", expect: "Expect roughly 50% on |00\u27e9 and 50% on |11\u27e9 — and critically, 0% on |01\u27e9 and |10\u27e9. The two qubits are now correlated: measuring one tells you the other, even though neither has a fixed value beforehand.", qubits: 2, steps: [{ gate: "H", qubit: 0 }, { gate: "CNOT", control: 0, target: 1 }] },
+    { title: "Lab 3 — The GHZ State", body: "Load: H on q0, CNOT q0\u2192q1, CNOT q0\u2192q2, 3 qubits. The three-qubit extension of entanglement.", expect: "Expect roughly 50% on |000\u27e9 and 50% on |111\u27e9, 0% everywhere else — all three qubits are now linked together, not just two.", qubits: 3, steps: [{ gate: "H", qubit: 0 }, { gate: "CNOT", control: 0, target: 1 }, { gate: "CNOT", control: 0, target: 2 }] },
+    { title: "Lab 4 — Why H Twice Returns to Start", body: "Load: H on q0, then H on q0 again, 1 qubit. Two gates, same qubit.", expect: "Expect 100% back on |0\u27e9. The Hadamard gate is its own inverse — applying it twice undoes it exactly, which is a useful fact for debugging circuits that aren't behaving as expected.", qubits: 1, steps: [{ gate: "H", qubit: 0 }, { gate: "H", qubit: 0 }] },
+  ];
+  document.getElementById("lab-cards").innerHTML = LABS.map((l, i) => `
+    <div class="lab-card">
+      <div class="lc-title">${l.title}</div>
+      <div class="lc-body">${l.body}<br/><em>${l.expect}</em></div>
+      <button class="lab-load" data-idx="${i}">Load this circuit \u2192</button>
+    </div>
+  `).join("");
+  document.querySelectorAll(".lab-load").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const lab = LABS[Number(btn.dataset.idx)];
+      simQubits = lab.qubits;
+      simSteps = lab.steps.slice();
+      renderQubitSelect(); renderGatePalette(); renderCircuitSteps(); renderResults(initState(simQubits));
+      document.getElementById("labs").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+
+  // External labs
+  const EXTERNAL_LABS = [
+    ["PennyLane Codebook (Xanadu)", "The strongest real hands-on lab platform in this space — structured learning paths with genuine interactive coding exercises, used by universities. Start here for deep practice once the concepts above feel solid.", "https://pennylane.ai/codebook"],
+    ["IBM Quantum Learning", "Official courses and hands-on notebooks straight from the certification's own publisher.", "https://learning.quantum.ibm.com/"],
+    ["Qiskit Textbook", "Free, thorough, and widely used as a companion to IBM's own courses.", "https://qiskit.org/learn"],
+    ["Run a real circuit on real hardware", "Once local practice feels solid, Quantum Onramp's Desktop & Laptop chapter walks through actually submitting a job to a real QPU.", "https://saadiqpassha.github.io/quantum-onramp/"],
+  ];
+  document.getElementById("external-labs").innerHTML = EXTERNAL_LABS.map(([t, d, u]) => `
+    <div class="lab-card">
+      <div class="lc-title"><a href="${u}" target="_blank" rel="noopener">${t}</a></div>
+      <div class="lc-body">${d}</div>
+    </div>
+  `).join("");
+
+  // =========================================================
+  // 04 — Mock Exam
+  // =========================================================
+  const QUIZ = [
+    { cat: "Fundamentals", q: "What does it mean for a qubit to be in superposition?", opts: ["It is physically vibrating faster than a classical bit", "It represents a combination of 0 and 1 simultaneously until measured", "It has been duplicated into two separate qubits", "It is entangled with every other qubit in the circuit"], correct: 1, explain: "Superposition means the qubit's state is a combination of the 0 and 1 basis states — it doesn't collapse to a definite value until measurement." },
+    { cat: "Fundamentals", q: "What happens when you measure one qubit of an entangled Bell pair?", opts: ["Nothing happens to the other qubit", "The other qubit's outcome becomes correlated and determined", "Both qubits are destroyed", "The circuit must be re-run from scratch"], correct: 1, explain: "Entanglement means the two qubits' measurement outcomes are correlated — measuring one immediately tells you about the other's state." },
+    { cat: "Fundamentals", q: "Why do quantum jobs typically run many \u201Cshots\u201D instead of one?", opts: ["To make the job run faster", "Because results are probabilistic, and more shots give a clearer statistical picture", "Shots are required by law in every quantum SDK", "To reduce the cost of the job"], correct: 1, explain: "A single shot gives one probabilistic outcome; many shots reveal the underlying probability distribution the circuit actually produces." },
+    { cat: "Circuits & Gates", q: "What does the Hadamard (H) gate do to a qubit in the |0\u27e9 state?", opts: ["Flips it deterministically to |1\u27e9", "Puts it into an equal superposition of |0\u27e9 and |1\u27e9", "Entangles it with another qubit", "Measures it immediately"], correct: 1, explain: "H|0\u27e9 produces an equal-probability superposition — the standard way to introduce superposition into a circuit." },
+    { cat: "Circuits & Gates", q: "What is required to create entanglement between two qubits?", opts: ["Two single-qubit gates applied in sequence", "A two-qubit gate, such as CNOT, applied after putting one qubit in superposition", "Simply placing the qubits next to each other on the chip", "Measuring both qubits at the same time"], correct: 1, explain: "Entanglement requires a two-qubit gate like CNOT acting on a qubit that's already in superposition — single-qubit gates alone can't create it." },
+    { cat: "Circuits & Gates", q: "Applying the same Hadamard gate to a qubit twice in a row does what?", opts: ["Doubles the superposition effect", "Returns the qubit to its original state", "Entangles it with itself", "Causes an error, since H can't be applied twice"], correct: 1, explain: "H is its own inverse — two applications cancel out and return the qubit to where it started." },
+    { cat: "Qiskit & Runtime", q: "In current Qiskit Runtime, what must happen to a circuit before submission to real hardware?", opts: ["Nothing — any valid circuit can be submitted directly", "It must be transpiled against the target backend's instruction set architecture", "It must be converted to Python bytecode", "It must be manually translated into assembly"], correct: 1, explain: "Runtime primitives require circuits to be transpiled to match the target backend's native gate set and connectivity — untranspiled circuits are rejected." },
+    { cat: "Qiskit & Runtime", q: "Why does a fresh virtual environment matter when upgrading to a major new Qiskit version?", opts: ["It doesn't — upgrading in place always works fine", "Major version changes can restructure packaging in ways that break in-place upgrades", "Virtual environments are required by IBM's terms of service", "It makes the circuit run faster"], correct: 1, explain: "Qiskit 1.0 specifically restructured packaging in a way that broke in-place upgrades for many users — a documented, common source of install errors." },
+    { cat: "Qiskit & Runtime", q: "What's the practical difference between session mode and batch mode in Qiskit Runtime?", opts: ["There is no real difference", "Session mode reserves dedicated time for iterative work like VQE; batch mode processes multiple jobs without guaranteed order", "Batch mode is always faster than session mode", "Session mode only works on simulators"], correct: 1, explain: "Session mode avoids queue delays between iterative quantum-classical steps; batch mode is for submitting many independent jobs together, without an execution-order guarantee." },
+    { cat: "Algorithms", q: "What kind of problems is Grover's algorithm designed to speed up?", opts: ["Factoring large numbers", "Unstructured search problems", "Simulating chemical reactions", "Training neural networks"], correct: 1, explain: "Grover's algorithm provides a quadratic speedup for searching an unsorted space — a different problem class than Shor's factoring algorithm." },
+    { cat: "Algorithms", q: "What do VQE and QAOA have in common?", opts: ["They are both purely classical algorithms", "They are hybrid algorithms that alternate between a classical optimizer and a quantum circuit", "They both require fault-tolerant quantum hardware to run at all", "They are only used for cryptography"], correct: 1, explain: "Both are hybrid classical-quantum algorithms — the practical, near-term pattern covered in Quantum Blueprint's glossary." },
+    { cat: "Algorithms", q: "What is the primary vulnerability that makes RSA encryption a target for future quantum computers?", opts: ["RSA uses too few bits", "Shor's algorithm can factor large numbers efficiently on a sufficiently capable quantum computer", "RSA was never designed with security in mind", "Quantum computers can guess RSA passwords faster"], correct: 1, explain: "Shor's algorithm efficiently solves the integer factorization problem RSA's security depends on — the core reason post-quantum cryptography exists." },
+    { cat: "Noise & Hardware", q: "Why do results from real quantum hardware differ from a noiseless local simulator?", opts: ["Real hardware is simply slower", "Real qubits are affected by gate errors, decoherence, and readout error that a perfect simulator doesn't model", "The simulator and real hardware use different gate definitions", "This never actually happens in practice"], correct: 1, explain: "Physical noise sources — gate errors, decoherence, readout error — are absent from a noiseless simulator, which is why real-hardware results diverge from simulated ones." },
+    { cat: "Noise & Hardware", q: "What is a NISQ-era device?", opts: ["A fully error-corrected, fault-tolerant quantum computer", "A noisy, intermediate-scale quantum device without full error correction — describes essentially all quantum hardware in use today", "A classical simulator pretending to be quantum hardware", "A deprecated, no-longer-used quantum architecture"], correct: 1, explain: "NISQ — Noisy Intermediate-Scale Quantum — describes today's era of hardware: real but noisy, without full error correction." },
+    { cat: "Noise & Hardware", q: "What's the practical benefit of a noisy simulator (as opposed to a perfect one) before running on real hardware?", opts: ["It runs faster than a perfect simulator", "It lets you sanity-check a circuit's noise-resilience cheaply before spending real QPU budget", "It's required by every quantum cloud vendor", "It automatically fixes noisy results"], correct: 1, explain: "A noisy simulator modeling a specific real device's error rates is a much cheaper way to catch noise-sensitivity problems before paying for real hardware time." },
+  ];
+
+  document.getElementById("quiz-list").innerHTML = QUIZ.map((item, qi) => `
+    <div class="quiz-q" data-qi="${qi}">
+      <div class="qq-cat">${item.cat.toUpperCase()}</div>
+      <div class="qq-text">${qi + 1}. ${item.q}</div>
+      ${item.opts.map((opt, oi) => `<button class="qq-opt" data-oi="${oi}">${opt}</button>`).join("")}
+      <div class="qq-explain">${item.explain}</div>
+    </div>
+  `).join("");
+
+  let answered = 0, correct = 0;
+  document.querySelectorAll(".quiz-q").forEach(qEl => {
+    const qi = Number(qEl.dataset.qi);
+    const item = QUIZ[qi];
+    let done = false;
+    qEl.querySelectorAll(".qq-opt").forEach(optEl => {
+      optEl.addEventListener("click", () => {
+        if (done) return;
+        done = true;
+        answered++;
+        const oi = Number(optEl.dataset.oi);
+        if (oi === item.correct) { correct++; optEl.classList.add("correct"); }
+        else {
+          optEl.classList.add("incorrect");
+          qEl.querySelectorAll(".qq-opt")[item.correct].classList.add("correct");
+        }
+        qEl.querySelector(".qq-explain").classList.add("show");
+        document.getElementById("score-display").textContent = `${correct} / ${answered}`;
+      });
+    });
+  });
+
+  // =========================================================
+  // 05 — Interview & Scenario Prep
+  // =========================================================
+  const SCENARIOS = {
+    "Software Developer": [
+      { q: "Walk through how you'd debug a circuit that runs fine on a simulator but gives unexpected results on real hardware.", hint: "Good answers reference noise, gate fidelity, and checking the actual failure reason rather than assuming the code itself is wrong — see the Common Errors chapter of Quantum Onramp for the real version of this." },
+      { q: "How would you explain a hybrid quantum-classical algorithm to a colleague who only knows classical software?", hint: "Strong answers avoid jargon and lean on the actual split of work — classical optimizer proposing parameters, quantum circuit evaluating them — rather than reciting VQE's formal definition." },
+      { q: "A teammate wants to hardcode an API token to save time before a demo. How do you respond?", hint: "This is really a judgment question about production discipline, not quantum knowledge — the expected answer is a firm no, with a quick explanation of why, per Quantum Onramp's enterprise-server guidance." },
+    ],
+    "Algorithm Researcher": [
+      { q: "How would you decide whether a given optimization problem is actually a good candidate for a quantum approach?", hint: "Look for reasoning about problem structure and a classical baseline comparison — not enthusiasm for quantum as a default." },
+      { q: "Explain the tradeoff between circuit depth and noise on current hardware.", hint: "Deeper circuits accumulate more gate error and decoherence — this is the practical reason NISQ-era algorithms favor shallow circuits." },
+      { q: "What would convince you that a result shows genuine quantum advantage, rather than a weak classical baseline?", hint: "A strong answer insists on comparing against the best available classical method, not just any classical method — a recurring theme across all of this material." },
+    ],
+    "Hardware Engineer": [
+      { q: "What's the difference between gate fidelity and coherence time, and why do both matter?", hint: "Fidelity is about how accurately a single operation executes; coherence time is about how long the qubit's state survives at all — both limit circuit depth, for different reasons." },
+      { q: "Why might a superconducting-qubit system and a trapped-ion system make different design tradeoffs?", hint: "Expect discussion of gate speed vs. gate fidelity vs. connectivity — there's no universally \u201Cbest\u201D modality, only different tradeoffs for different problems." },
+    ],
+    "Quantum ML": [
+      { q: "When would a quantum machine learning approach actually make sense over a classical one?", hint: "Good answers are skeptical by default — quantum ML's practical advantage is narrow and unproven for most tasks today, which is exactly the honest answer to give." },
+      { q: "How do you evaluate whether a quantum kernel or variational classifier is worth the added complexity?", hint: "Reference benchmarking against classical baselines and being honest that a negative result is still a useful, valid outcome." },
+    ],
+    "Quantum-Safe Security (PQC)": [
+      { q: "Explain harvest-now-decrypt-later to someone in a non-technical leadership role.", hint: "The strongest answers make the urgency concrete — data encrypted today with a vulnerable algorithm is already exposed, not exposed at some future date." },
+      { q: "Why would an organization choose SLH-DSA for a signature despite it being slower and larger than ML-DSA?", hint: "Independent security assumption from lattice-based schemes — cheap insurance for the highest-value, longest-lived signatures, as covered in Quantum Onramp." },
+      { q: "Walk through how you'd prioritize which systems to migrate to post-quantum cryptography first.", hint: "Strong answers reference data sensitivity and confidentiality lifespan as the prioritization criteria, not just whichever system is easiest to touch." },
+    ],
+  };
+  const roleNames = Object.keys(SCENARIOS);
+  document.getElementById("scenario-toggle").innerHTML = roleNames.map((r, i) =>
+    `<button class="toggle-btn${i === 0 ? " active" : ""}" data-role="${r}">${r}</button>`
+  ).join("");
+  function renderScenarios(role) {
+    document.getElementById("scenario-list").innerHTML = SCENARIOS[role].map(s => `
+      <div class="scenario-card">
+        <div class="sc-role">${role.toUpperCase()}</div>
+        <div class="sc-q">${s.q}</div>
+        <div class="sc-hint">${s.hint}</div>
+      </div>
+    `).join("");
+  }
+  document.querySelectorAll("#scenario-toggle .toggle-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#scenario-toggle .toggle-btn").forEach(b => b.classList.toggle("active", b === btn));
+      renderScenarios(btn.dataset.role);
+    });
+  });
+  renderScenarios(roleNames[0]);
+
+  // =========================================================
+  // 06 — Career Paths
+  // =========================================================
+  const CAREERS = [
+    { role: "Quantum Software Developer", does: "Writes and maintains circuits, SDK integrations, and the classical orchestration code around quantum jobs — the most accessible entry path for someone from a conventional software background.", background: "Solid Python, comfort with linear algebra fundamentals; formal physics training is helpful but not required.", skills: "Qiskit or another SDK, debugging noisy-vs-simulated discrepancies, CI/CD for quantum pipelines.", adjacent: "The IBM Qiskit certification is a direct, relevant credential for this specific path." },
+    { role: "Quantum Algorithm Researcher", does: "Designs and evaluates new algorithms, usually benchmarking against classical baselines to establish where quantum approaches genuinely help.", background: "Typically graduate-level physics, math, or computer science; this path leans more academic than the software track.", skills: "Deep algorithm theory, statistical rigor, comfort publishing and defending negative results.", adjacent: "Formal graduate coursework or a research-track master's/PhD matters more here than a short certification." },
+    { role: "Quantum Hardware Engineer", does: "Builds and operates the physical qubit systems — control electronics, cryogenics, calibration — the discipline behind the machines everyone else's code runs on.", background: "Physics or electrical engineering degree, often graduate-level; this is the most credential-intensive of the five paths.", skills: "Cryogenic systems, RF/microwave engineering, device calibration and noise characterization.", adjacent: "Formal EE/physics credentials, not a short-form certification, are the real requirement here." },
+    { role: "Quantum Machine Learning Engineer", does: "Builds hybrid quantum-classical ML models and honestly evaluates whether they beat a classical approach — skepticism is a core job skill here, not a weakness.", background: "Strong classical ML background first, quantum computing knowledge layered on top — not the reverse.", skills: "PennyLane or Qiskit ML modules, classical ML benchmarking discipline, hybrid workflow design.", adjacent: "An established AI/ML certification paired with QML-specific coursework, per the Certification Guide section." },
+    { role: "Quantum-Safe Security Specialist", does: "Leads post-quantum cryptography migration — cryptographic inventory, algorithm selection, hybrid rollout — a discipline that barely touches quantum hardware itself.", background: "Security or applied cryptography background; this path is defensive software and protocol work, not quantum physics.", skills: "PQC algorithm tradeoffs (see Quantum Onramp's Digital Signatures chapter), crypto-agility architecture, compliance timelines.", adjacent: "A cybersecurity or applied cryptography certification is the more relevant credential than a quantum-specific one." },
+  ];
+  document.getElementById("career-list").innerHTML = CAREERS.map(c => `
+    <div class="role-card">
+      <div class="rc-title">${c.role}</div>
+      <div class="role-row"><div class="rk">DOES</div><div>${c.does}</div></div>
+      <div class="role-row"><div class="rk">BACKGROUND</div><div>${c.background}</div></div>
+      <div class="role-row"><div class="rk">SKILLS</div><div>${c.skills}</div></div>
+      <div class="role-row"><div class="rk">CREDENTIAL</div><div>${c.adjacent}</div></div>
+    </div>
+  `).join("");
+
+  // =========================================================
+  // 08 — Sources
+  // =========================================================
+  const SOURCES = [
+    { group: "Certification", items: [
+      ["IBM", "Certification page & official sample test", "https://www.ibm.com/training/certification/ibm-certified-associate-developer-quantum-computation-using-qiskit-v02x-C0010300"],
+      ["Schrodin's Diary", "v2.X sample test explanations", "https://schrodinteq.github.io/ibmcertsamplev2x01/"],
+      ["GitHub (andre-a-alves)", "Sample test answer breakdowns", "https://github.com/andre-a-alves/qiskit-sample-test-answers"],
+    ]},
+    { group: "Learning platforms", items: [
+      ["Xanadu", "PennyLane Codebook", "https://pennylane.ai/codebook"],
+      ["IBM Quantum", "Quantum Learning", "https://learning.quantum.ibm.com/"],
+      ["IBM Quantum", "Install Qiskit", "https://quantum.cloud.ibm.com/docs/en/guides/install-qiskit"],
+    ]},
+    { group: "Community and career", items: [
+      ["QED-C", "Quantum Economic Development Consortium", "https://quantumconsortium.org/"],
+      ["Q2B", "Quantum industry conference", "https://q2b.qcware.com/"],
+      ["APS", "March Meeting / DAMOP", "https://march.aps.org/"],
+    ]},
+  ];
+  document.getElementById("source-list").innerHTML = SOURCES.map(g => `
+    <div class="source-group">
+      <h4>${g.group}</h4>
+      ${g.items.map(([org, title, url]) => `<div class="source-item"><span class="source-org">${org}</span><a href="${url}" target="_blank" rel="noopener">${title}</a></div>`).join("")}
+    </div>
+  `).join("");
+})();
+</script>
+</body>
+</html>
